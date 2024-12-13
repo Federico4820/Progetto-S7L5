@@ -6,7 +6,8 @@ let descrizioneProdotto= document.getElementById("descrizioneProdotto")
 let brand= document.getElementById("brand")
 let imgProdotto= document.getElementById("imgProdotto")
 let prezzo= document.getElementById("prezzo")
-let invio= document.getElementById("invio")
+let btnInvio= document.getElementById("invio")
+let btnModifica= document.getElementById("modifica")
 
 const aggiunta={
     "name":nomeProdotto.value
@@ -17,7 +18,6 @@ fetch(link, {
     "Authorization": `Bearer ${passKey}`
     }
 })
-
 .then(link=>{
     if(!link.ok){
         throw new Error(`Rilevato errore:${link.status}`)
@@ -27,18 +27,18 @@ fetch(link, {
 .then(acquisti=>{
     acquisti.forEach(acquisto => {
         row.innerHTML+=`
-        <div class="card col m-3">
+        <div class="card col m-3 p-3">
             <img src="${acquisto.imageUrl}" alt="immagine prodotto">
             <h3 class="card-title">${acquisto.name}</h3>
             <p class="card-text">${acquisto.description}</p>
-            <p> prezz:${acquisto.price}€</p>
-            <button id="Cancella" class="bg-warning"><a href="pag2.html">Modifica</a></button>
+            <p> prezzo: ${acquisto.price}€</p>
+            <button id="modifica" class="bg-warning">Modifica</button>
         </div>`
     });
 })
 
 
-invio.addEventListener("click", ()=>{
+btnInvio.addEventListener("click", ()=>{
     let aggiunta={
         "name":nomeProdotto.value,
         "description":descrizioneProdotto.value,
@@ -68,5 +68,9 @@ invio.addEventListener("click", ()=>{
         console.error('Errore durante l\'invio:', error);
         alert('Errore durante l\'invio dei dati.');
     });
+    
+})
+
+btnModifica.addEventListener("click",()=>{
     
 })
